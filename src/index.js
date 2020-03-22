@@ -19,25 +19,27 @@ export default ({ types: t }) => ({
             const absolutePath = p.resolve(dir, value)
             const html = fs.readFileSync(absolutePath, 'utf8') || ''
 
-            parentPath.replaceWith(t.variableDeclaration('var', [
-                t.variableDeclarator(
-                    t.identifier(parentPath.node.specifiers[0].local.name),
-                    t.assignmentExpression(
-                        '=',
-                        t.memberExpression(
-                            t.callExpression(
-                                t.memberExpression(
-                                    t.identifier('document'),
-                                    t.identifier('createElement')
-                                ),
-                                [t.stringLiteral('template')]
+            parentPath.replaceWithMultiple([
+                t.variableDeclaration('var', [
+                    t.variableDeclarator(
+                        t.identifier(parentPath.node.specifiers[0].local.name),
+                        t.callExpression(
+                            t.memberExpression(
+                                t.identifier('document'),
+                                t.identifier('createElement')
                             ),
-                            t.identifier('innerHTML')
-                        ),
-                        t.stringLiteral(html)
-                    )
-                )
-            ]))
+                            [t.stringLiteral('template')]
+                        )
+                    )]),
+                t.expressionStatement(t.assignmentExpression(
+                    '=',
+                    t.memberExpression(
+                        t.identifier('template'),
+                        t.identifier('innerHTML')
+                    ),
+                    t.stringLiteral(html)
+                ))
+            ])
         }
     }
 })

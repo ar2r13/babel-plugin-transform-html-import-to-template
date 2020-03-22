@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-html-import-to-template",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Turn HTML imports into HTMLTemplateElement",
   "license": "MIT",
   "main": "lib/index.js",
