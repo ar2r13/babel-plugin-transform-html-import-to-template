@@ -1,0 +1,32 @@
+{
+  "name": "babel-plugin-transform-html-import-to-template",
+  "version": "0.0.1",
+  "description": "Turn HTML imports into HTMLTemplateElement",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src --out-dir lib --copy-files",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "yarn build && babel test.js --out-dir dist --plugins ./lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ar2r13/babel-plugin-transform-html-import-to-template.git"
+  },
+  "keywords": [
+    "babel-plugin",
+    "css",
+    "import",
+    "cssom"
+  ],
+  "author": "Arthur Lavrischev",
+  "bugs": {
+    "url": "https://github.com/ar2r13/babel-plugin-transform-html-import-to-template/issues"
+  },
+  "homepage": "https://github.com/ar2r13/babel-plugin-transform-html-import-to-template#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0"
+  }
+}
