@@ -20,11 +20,13 @@ export default ({ types: t }) => ({
             const absolutePath = p.resolve(dir, value)
             const content = fs.readFileSync(absolutePath, 'utf8') || ''
 
+            const name = parentPath.node.specifiers[0].local.name
+
             if (extension === '.html') 
                 parentPath.replaceWithMultiple([
                     t.variableDeclaration('var', [
                         t.variableDeclarator(
-                            t.identifier(parentPath.node.specifiers[0].local.name),
+                            t.identifier(name),
                             t.callExpression(
                                 t.memberExpression(
                                     t.identifier('document'),
@@ -36,7 +38,7 @@ export default ({ types: t }) => ({
                     t.expressionStatement(t.assignmentExpression(
                         '=',
                         t.memberExpression(
-                            t.identifier('template'),
+                            t.identifier(name),
                             t.identifier('innerHTML')
                         ),
                         t.stringLiteral(content)
@@ -44,18 +46,21 @@ export default ({ types: t }) => ({
                 ])
 
             if (extension === '.css') 
-                parentPath.replaceWith(t.variableDeclaration('var', [
-                    t.variableDeclarator(
-                        t.identifier(parentPath.node.specifiers[0].local.name),
-                        t.callExpression(
-                            t.memberExpression(
-                                t.newExpression(t.identifier('CSSStyleSheet'), []),
-                                t.identifier('replaceSync')
-                            ),
-                            [t.stringLiteral(content)]
+                parentPath.replaceWithMultiple([
+                    t.variableDeclaration('var', [
+                        t.variableDeclarator(
+                            t.identifier(name),
+                            t.newExpression(t.identifier('CSSStyleSheet'), [])
                         )
-                    )
-                ]))
+                    ]),
+                    t.expressionStatement(t.callExpression(
+                        t.memberExpression(
+                            t.identifier(name),
+                            t.identifier('replaceSync')
+                        ),
+                        [t.stringLiteral(content)]
+                    ))
+                ])
         }
     }
 })
