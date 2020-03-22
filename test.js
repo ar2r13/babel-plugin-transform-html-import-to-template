@@ -1,1 +1,0 @@
-import template from './form.html'
