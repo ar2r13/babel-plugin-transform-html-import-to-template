@@ -10,15 +10,27 @@ function ext (path) {
 
 export default ({ types: t }) => ({
     visitor: {
-        ImportDefaultSpecifier({ parentPath }, { file }) {
+        ImportDefaultSpecifier({ parentPath }, { file, opts }) {
             const { value } = parentPath.node.source
+            const { src, dist } = opts
             const extension = ext(value)
 
             if (!['.css', '.html'].includes(extension)) return
             
             const dir = p.dirname(p.resolve(file.opts.filename))
             const absolutePath = p.resolve(dir, value)
-            const content = fs.readFileSync(absolutePath, 'utf8') || ''
+
+            try {  
+                const optionalPath = p.resolve(
+                    dist,
+                    p.relative(p.resolve(file.opts.root, src), dir),
+                    value
+                )
+
+                var content = fs.readFileSync(optionalPath, 'utf8') || ''
+            } catch (error) {
+                var content = fs.readFileSync(absolutePath, 'utf8') || ''
+            }
 
             const name = parentPath.node.specifiers[0].local.name
 

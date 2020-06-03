@@ -1,13 +1,14 @@
 {
   "name": "babel-plugin-transform-html-import-to-template",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Turn HTML imports into HTMLTemplateElement",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib --copy-files",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "yarn build && babel test/index.js --out-dir dist --plugins ./lib/index.js"
+    "start": "yarn build && babel test/**/*.js --out-dir dist --plugins ./lib/index.js",
+    "install": "npm run build"
   },
   "repository": {
     "type": "git",
