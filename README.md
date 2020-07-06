@@ -14,6 +14,7 @@ Given the following _template.html_.
 
 ```js
 import template from './template.html'
+import style from './style.css'
 // ...
 this.shadowRoot.append(template.content.cloneNode(true))
 ```
@@ -21,7 +22,11 @@ this.shadowRoot.append(template.content.cloneNode(true))
 #### out
 
 ```js
-var template = document.createElement(template).innerHTML = '<span>html template 🌞</span>'
+var template = document.createElement('template');
+template.innerHTML = '<span>html template 🌞</span>';
+
+var style = new CSSStyleSheet;
+style.replaceSync('span { color: dodgerblue })
 ```
 
 
