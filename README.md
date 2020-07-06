@@ -10,7 +10,7 @@ Given the following _template.html_.
 <span>html template 🌞</span>
 ```
 
-#### in
+#### input
 
 ```js
 import template from './template.html'
@@ -19,7 +19,7 @@ import style from './style.css'
 this.shadowRoot.append(template.content.cloneNode(true))
 ```
 
-#### out
+#### output
 
 ```js
 var template = document.createElement('template');
@@ -27,6 +27,8 @@ template.innerHTML = '<span>html template 🌞</span>';
 
 var style = new CSSStyleSheet;
 style.replaceSync('span { color: dodgerblue })
+// ...
+this.shadowRoot.append(template.content.cloneNode(true))
 ```
 
 
